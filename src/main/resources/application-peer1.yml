@@ -1,0 +1,22 @@
+server:
+  port: 8761
+spring:
+  profiles: peer1
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    hostname: peer1
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://hlyz:123456@peer2:8762/eureka/
+  server:
+    enable-self-preservation: false #关闭自我保护模式
+security:
+  user:
+    name: hlyz
+    password: 123456
