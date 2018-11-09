@@ -23,6 +23,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Dalston.SR2</spring-cloud.version>
+		<docker.image.prefix>192.168.10.109:8090</docker.image.prefix>
+        	<docker.project.name>service_discovery</docker.project.name>
+		<project.build.finalName>service_discovery</project.build.finalName>
 	</properties>
 
 	<dependencies>
@@ -67,8 +70,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.3.7</version>
+				<configuration>
+				    <repository>${docker.image.prefix}/${docker.project.name}/${project.artifactId}</repository>
+				    <buildArgs>
+					<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+				    </buildArgs>
+				</configuration>
+            		</plugin>
 		</plugins>
 	</build>
-
 
 </project>
