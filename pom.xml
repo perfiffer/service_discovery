@@ -74,8 +74,10 @@
                                 <artifactId>docker-maven-plugin</artifactId>
                                 <version>0.4.13</version>
                                 <configuration>
-                                        <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                                        <dockerDirectory>src/main/docker</dockerDirectory>
+                                        <imageName>eureka-server</imageName>
+                                        <exposes>8761</exposes>
+                                        <baseImage>docker.io/openjdk:8-jdk</baseImage>
+                                        <entryPoint>["java", "-jar", "${project.build.finalName}.jar", "--spring.profiles.active=dev"]</entryPoint>
                                         <resources>
                                                 <resource>
                                                         <targetPath>/</targetPath>
